@@ -1,0 +1,50 @@
+{
+  "name": "@rhapsodic/agent-skills",
+  "version": "0.1.0",
+  "description": "Reusable agent skills for development workflows",
+  "license": "MIT",
+  "engines": {
+    "node": "^22.12 || >=24"
+  },
+  "author": {
+    "name": "rhapsodic.dev",
+    "email": "rhapsodic.dev@gmail.com",
+    "url": "https://github.com/rhapsodic-dev"
+  },
+  "contributors": [
+    {
+      "name": "Svyatoslav Fyodorov",
+      "email": "intelrug@gmail.com",
+      "url": "https://github.com/intelrug"
+    },
+    {
+      "name": "TrenLok",
+      "email": "trenlok.dev@gmail.com",
+      "url": "https://github.com/trenlok"
+    }
+  ],
+  "homepage": "https://github.com/rhapsodic-dev/agent-skills.git#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rhapsodic-dev/agent-skills.git"
+  },
+  "bugs": {
+    "url": "https://github.com/rhapsodic-dev/agent-skills/issues"
+  },
+  "files": [
+    "skills",
+    "LICENSE",
+    "README.md"
+  ],
+  "devDependencies": {
+    "bumpp": "^11.1.0"
+  },
+  "scripts": {
+    "release": "bumpp"
+  },
+  "keywords": [
+    "agent-skills",
+    "codex"
+  ],
+  "packageManager": "pnpm@11.20.0+sha512.9a6f330a95b66446ea088faf1521405a8a01f07fde7124cc9958dfed52d4bb436737e65b08f85f37b46fcba375092558ac51262b816844b22f63406ed166bfee"
+}

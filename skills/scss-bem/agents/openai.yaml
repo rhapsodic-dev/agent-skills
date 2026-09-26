@@ -1,0 +1,4 @@
+interface:
+  display_name: "SCSS BEM"
+  short_description: "Write maintainable SCSS with BEM naming"
+  default_prompt: "Use $scss-bem to write or refactor these component styles with BEM conventions."

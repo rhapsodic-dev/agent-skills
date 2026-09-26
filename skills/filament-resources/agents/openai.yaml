@@ -1,0 +1,4 @@
+interface:
+  display_name: "Filament Resources"
+  short_description: "Build consistent Laravel Filament resources"
+  default_prompt: "Use $filament-resources to create or update a Filament resource in this Laravel application."

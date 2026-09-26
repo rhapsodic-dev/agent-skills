@@ -1,0 +1,4 @@
+interface:
+  display_name: "Laravel Migrations"
+  short_description: "Create safe Laravel database migrations"
+  default_prompt: "Use $laravel-migrations to create the requested database migration with Artisan."
