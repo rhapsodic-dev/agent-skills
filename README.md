@@ -124,9 +124,12 @@ npx skills-npm setup
 
 ## Skills
 
+- [`filament-page-constructor-block`](skills/filament-page-constructor-block/README.md): create or migrate blocks in Laravel Filament projects already using a page-constructor package.
 - [`filament-resources`](skills/filament-resources/README.md): create, migrate, or update Filament resources in Laravel applications.
 - [`git-commit`](skills/git-commit/README.md): plan, review, or create Git commits.
 - [`laravel-migrations`](skills/laravel-migrations/README.md): create Laravel database migrations through Artisan.
+- [`manage-projects`](skills/manage-projects/README.md): run, test, build, or troubleshoot Laravel Docker Compose projects using `./manage` and `.manage.json`.
+- [`project-skill-creator`](skills/project-skill-creator/README.md): create or update project-local agent skills from a project's workflows and conventions.
 - [`scss-bem`](skills/scss-bem/README.md): write or refactor component SCSS using BEM naming.
 
 ## Development

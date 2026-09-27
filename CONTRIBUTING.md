@@ -2,6 +2,15 @@
 
 Contributions to the skills, installer, and documentation are welcome. Keep each pull request focused on one change.
 
+## Navigation
+
+- [Setup](#setup)
+- [Adding or updating skills](#adding-or-updating-skills)
+- [Writing skill instructions](#writing-skill-instructions)
+- [Installer changes](#installer-changes)
+- [Validation](#validation)
+- [Commits and pull requests](#commits-and-pull-requests)
+
 ## Setup
 
 Use the Node.js version in [.nvmrc](.nvmrc) and the pnpm version specified in [package.json](package.json).
@@ -34,6 +43,12 @@ This creates `skills/my-skill/SKILL.md` with starter frontmatter and instruction
 - Update the skill list in [README.md](README.md#skills) when adding, renaming, or removing a skill.
 
 Test the skill against a representative task. Reinstall from the checkout before testing edits: installed skills are copies, so changes do not propagate automatically.
+
+## Writing skill instructions
+
+Follow the [project-skill-creator instructions](skills/project-skill-creator/SKILL.md) for scope, wording, project conventions, overrides, authorization, and validation. See its [README](skills/project-skill-creator/README.md) for example requests in a project session.
+
+For contributions here, use `skills/<name>/` and include the README and agent metadata described above.
 
 ## Installer changes
 
