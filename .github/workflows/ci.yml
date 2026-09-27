@@ -40,3 +40,8 @@ jobs:
 
       - name: Validate package
         run: pnpm pack --dry-run --config.ignore-scripts=true
+
+      - name: Validate installer
+        run: node bin/cli.mjs --list
+        env:
+          DISABLE_TELEMETRY: '1'

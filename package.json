@@ -1,10 +1,14 @@
 {
   "name": "@rhapsodic/agent-skills",
   "version": "0.1.0",
+  "type": "module",
   "description": "Reusable agent skills for development workflows",
   "license": "MIT",
+  "bin": {
+    "agent-skills": "./bin/cli.mjs"
+  },
   "engines": {
-    "node": "^22.12 || >=24"
+    "node": "^22.20 || >=24"
   },
   "author": {
     "name": "rhapsodic.dev",
@@ -32,11 +36,15 @@
     "url": "https://github.com/rhapsodic-dev/agent-skills/issues"
   },
   "files": [
+    "bin",
     "skills",
     "LICENSE",
     "README.md",
     "DEVELOPMENT.md"
   ],
+  "dependencies": {
+    "skills": "^1.7.0"
+  },
   "devDependencies": {
     "bumpp": "^11.1.0"
   },
