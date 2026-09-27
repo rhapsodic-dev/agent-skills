@@ -1,0 +1,4 @@
+interface:
+  display_name: "Laravel Projects with ./manage"
+  short_description: "Run and troubleshoot Laravel projects with ./manage"
+  default_prompt: "Use $manage-projects to run, test, build, or troubleshoot this Laravel project through its ./manage wrapper and .manage.json configuration."
