@@ -34,7 +34,8 @@
   "files": [
     "skills",
     "LICENSE",
-    "README.md"
+    "README.md",
+    "DEVELOPMENT.md"
   ],
   "devDependencies": {
     "bumpp": "^11.1.0"
