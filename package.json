@@ -1,6 +1,6 @@
 {
   "name": "@rhapsodic/agent-skills",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "type": "module",
   "description": "Reusable agent skills for development workflows",
   "license": "MIT",
