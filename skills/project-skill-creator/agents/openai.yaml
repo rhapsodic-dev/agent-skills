@@ -1,0 +1,4 @@
+interface:
+  display_name: "Project Skill Creator"
+  short_description: "Create and update skills using project conventions"
+  default_prompt: "Use $project-skill-creator to create or update an agent skill inside this project using its existing workflows and conventions."
