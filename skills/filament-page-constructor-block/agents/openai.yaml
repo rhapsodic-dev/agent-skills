@@ -1,0 +1,4 @@
+interface:
+  display_name: "Filament Page Constructor Blocks"
+  short_description: "Build blocks for an installed Filament page constructor"
+  default_prompt: "Use $filament-page-constructor-block to create or migrate blocks for this project's existing Filament page-constructor package."
