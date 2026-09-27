@@ -29,6 +29,7 @@ This creates `skills/my-skill/SKILL.md` with starter frontmatter and instruction
 
 - Define the skill in `SKILL.md` with YAML frontmatter containing `name` and `description`. The description should explain when to use the skill.
 - Keep instructions concise, actionable, and focused on the skill's workflow.
+- Add or update the skill's `README.md` with usage examples and project-specific preferences, linking to `SKILL.md` for the agent instructions.
 - Add or update `agents/openai.yaml` to match the existing agent metadata format.
 - Update the skill list in [README.md](README.md#skills) when adding, renaming, or removing a skill.
 

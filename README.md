@@ -124,10 +124,10 @@ npx skills-npm setup
 
 ## Skills
 
-- [`filament-resources`](skills/filament-resources/SKILL.md): create, migrate, or update Filament resources in Laravel applications.
-- [`git-commit`](skills/git-commit/SKILL.md): review repository changes and create one logical Git commit.
-- [`laravel-migrations`](skills/laravel-migrations/SKILL.md): create Laravel database migrations through Artisan.
-- [`scss-bem`](skills/scss-bem/SKILL.md): write or refactor component SCSS using BEM naming.
+- [`filament-resources`](skills/filament-resources/README.md): create, migrate, or update Filament resources in Laravel applications.
+- [`git-commit`](skills/git-commit/README.md): plan, review, or create Git commits.
+- [`laravel-migrations`](skills/laravel-migrations/README.md): create Laravel database migrations through Artisan.
+- [`scss-bem`](skills/scss-bem/README.md): write or refactor component SCSS using BEM naming.
 
 ## Development
 
