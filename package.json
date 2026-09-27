@@ -40,7 +40,8 @@
     "skills",
     "LICENSE",
     "README.md",
-    "DEVELOPMENT.md"
+    "DEVELOPMENT.md",
+    "CONTRIBUTING.md"
   ],
   "dependencies": {
     "skills": "^1.7.0"

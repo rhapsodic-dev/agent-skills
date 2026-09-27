@@ -16,6 +16,7 @@ Install the published [`@rhapsodic/agent-skills`](https://npmx.dev/package/@rhap
 - [Upgrading](#upgrading)
 - [Skills](#skills)
 - [Development](#development)
+- [Contributing](#contributing)
 
 ## Installation
 
@@ -131,3 +132,7 @@ npx skills-npm setup
 ## Development
 
 See [DEVELOPMENT.md](DEVELOPMENT.md) for installing skills from a local checkout.
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines and validation steps.
