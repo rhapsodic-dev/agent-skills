@@ -14,10 +14,10 @@ node bin/cli.mjs --list
 From a target project, run the checkout's installer to test interactive selection:
 
 ```bash
-node /path/to/agent-skills/bin/cli.mjs --agent codex
+node /path/to/agent-skills/bin/cli.mjs
 ```
 
-The installer resolves skills relative to its own package and installs them in the caller's project unless `--global` is supplied.
+The installer resolves skills relative to its own package. It defaults to global Codex installation, preselecting installed skills. Use `--project` from the target project for project-local installation. The optional `find-skills` skill is not installed.
 
 ## Global installation
 

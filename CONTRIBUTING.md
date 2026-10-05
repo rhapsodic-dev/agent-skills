@@ -52,7 +52,7 @@ For contributions here, use `skills/<name>/` and include the README and agent me
 
 ## Installer changes
 
-Keep the installer a small wrapper around the `skills` CLI. Reuse its selection menu and installation options. Preserve the caller's working directory and terminal so project-local installation and interactive prompts work correctly.
+Keep the installer a small wrapper around the `skills` CLI. Preselect installed skills in the wrapper's menu, then pass the selection and installation options to `skills`. Preserve the caller's working directory and terminal so project-local installation and interactive prompts work correctly.
 
 Use ESM and follow [.editorconfig](.editorconfig) for formatting.
 
@@ -62,11 +62,12 @@ Run the package and installer checks used by CI:
 
 ```bash
 pnpm ci
+pnpm test
 pnpm pack --dry-run --config.ignore-scripts=true
 node bin/cli.mjs --list
 ```
 
-For installer changes, also test interactive selection and installation of selected skills in a temporary project. Confirm that the installed files match the checkout and that cancelling a prompt leaves the project unchanged.
+For installer changes, also test interactive selection and installation of selected skills in isolated global and project directories. Confirm that installed skills are preselected, the installed files match the checkout, and cancelling the prompt leaves the directories unchanged.
 
 Include `pnpm-lock.yaml` when changing dependencies.
 

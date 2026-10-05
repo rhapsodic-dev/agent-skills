@@ -44,12 +44,14 @@
     "CONTRIBUTING.md"
   ],
   "dependencies": {
+    "@clack/prompts": "^1.8.1",
     "skills": "^1.7.0"
   },
   "devDependencies": {
     "bumpp": "^11.1.0"
   },
   "scripts": {
+    "test": "node --test",
     "release": "bumpp"
   },
   "keywords": [

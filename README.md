@@ -22,20 +22,20 @@ Install the published [`@rhapsodic/agent-skills`](https://npmx.dev/package/@rhap
 
 ### npm
 
-Choose which skills, agents, and installation scope to use interactively:
+Select skills interactively. The installer targets global Codex skills by default and preselects skills already installed there:
 
 ```bash
 npx @rhapsodic/agent-skills@latest
 ```
 
-Use arrow keys to navigate, Space to select, and Enter to confirm. The installer uses the skills bundled with the selected npm release. To use a specific version, replace `@latest` with that version.
+Use arrow keys to navigate, Space to select, and Enter to confirm. The optional `find-skills` skill is not installed. The installer uses the skills bundled with the selected npm release. To use a specific version, replace `@latest` with that version.
 
 #### Global
 
 Install every skill for Codex at user scope from npm:
 
 ```bash
-npx @rhapsodic/agent-skills@latest --global --agent codex --skill '*' --yes
+npx @rhapsodic/agent-skills@latest --yes
 ```
 
 Global skills are available across repositories.
@@ -46,10 +46,10 @@ npx skills list --global --agent codex
 
 #### Project-local
 
-From the target project, omit `--global` to install from npm:
+From the target project, use `--project` to install from npm:
 
 ```bash
-npx @rhapsodic/agent-skills@latest --agent codex --skill '*' --yes
+npx @rhapsodic/agent-skills@latest --project --yes
 ```
 
 Use project-local installation when the skills should apply only to that repository.
@@ -59,13 +59,13 @@ Use project-local installation when the skills should apply only to that reposit
 Pass skill names to install only those skills without prompts:
 
 ```bash
-npx @rhapsodic/agent-skills@latest --agent codex --skill git-commit scss-bem --yes
+npx @rhapsodic/agent-skills@latest --skill git-commit scss-bem
 ```
 
 To select skills interactively for Codex, omit `--skill` and `--yes`:
 
 ```bash
-npx @rhapsodic/agent-skills@latest --global --agent codex
+npx @rhapsodic/agent-skills@latest
 ```
 
 List available skills without installing:
@@ -74,7 +74,7 @@ List available skills without installing:
 npx @rhapsodic/agent-skills@latest --list
 ```
 
-The installer passes installation options through to the `skills` CLI, including `--copy`.
+Use `--agent <name>` to target another agent and `--global` to make the default scope explicit. The installer passes other installation options through to the `skills` CLI, including `--copy`. Use `--skill` or `--yes` when running without an interactive terminal.
 
 #### skills-npm
 
@@ -105,15 +105,15 @@ npx skills add rhapsodic-dev/agent-skills --agent codex --skill '*' --yes
 
 ## Upgrading
 
-Run the installer with `@latest` again to replace installed skills with the latest npm release. Use the same agents, scope, and skill selection as your original installation.
+Run the installer with `@latest` again to replace installed skills with the latest npm release. It preselects skills already installed for Codex in the global scope, so press Enter to upgrade those skills or adjust the selection first:
 
-Upgrade all global Codex skills from this package:
+Upgrade the installed global Codex skills from this package:
 
 ```bash
-npx @rhapsodic/agent-skills@latest --global --agent codex --skill '*' --yes
+npx @rhapsodic/agent-skills@latest
 ```
 
-For project-local skills, run the command from the target project and omit `--global`. To upgrade specific skills, replace `--skill '*'` with their names, such as `--skill git-commit scss-bem`. Omit `--skill` and `--yes` to choose skills interactively.
+For project-local skills, run the command from the target project with `--project`; installed project skills are preselected there. To upgrade specific skills without prompts, pass their names with `--skill`, such as `--skill git-commit scss-bem`. Use `--yes` to install or upgrade every bundled skill.
 
 If you use `skills-npm`, update the dependency and refresh its project-local links:
 
