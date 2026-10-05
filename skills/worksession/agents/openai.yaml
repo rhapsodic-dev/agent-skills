@@ -1,0 +1,4 @@
+interface:
+  display_name: "worksession"
+  short_description: "Manage persistent workspace services and terminals"
+  default_prompt: "Use $worksession to inspect and manage this project's persistent workspace sessions."
