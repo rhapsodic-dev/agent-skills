@@ -1,0 +1,4 @@
+interface:
+  display_name: "Actions Workflows"
+  short_description: "Create and refactor CI and release workflows"
+  default_prompt: "Use $actions-workflows to improve this project's CI and release workflows while preserving its platform and release policy."

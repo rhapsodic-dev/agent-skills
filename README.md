@@ -124,6 +124,7 @@ npx skills-npm setup
 
 ## Skills
 
+- [`actions-workflows`](skills/actions-workflows/README.md): create or refactor readable GitHub Actions, Forgejo, and Gitea CI/release workflows.
 - [`filament-page-constructor-block`](skills/filament-page-constructor-block/README.md): create or migrate blocks in Laravel Filament projects already using a page-constructor package.
 - [`filament-resources`](skills/filament-resources/README.md): create, migrate, or update Filament resources in Laravel applications.
 - [`git-commit`](skills/git-commit/README.md): plan, review, or create Git commits.
