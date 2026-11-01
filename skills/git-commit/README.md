@@ -13,4 +13,7 @@ Planning leaves the index and commits unchanged. A staged-only request commits e
 
 ## Commit conventions
 
-The skill uses lowercase Conventional Commits and respects configured GPG signing. State requested actions such as pushing or amending explicitly; a commit request alone does not include them.
+The skill uses lowercase Conventional Commits and respects configured GPG signing.
+The first commit uses `feat: create project`, including when an existing history is
+squashed into a fresh initial commit. State requested actions such as pushing or
+amending explicitly; a commit request alone does not include them.
