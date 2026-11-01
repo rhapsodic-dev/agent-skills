@@ -48,46 +48,59 @@ package version, and release branch before publishing.
 
 ## pnpr defaults
 
-Use the existing workspace configuration; do not change it for CI. Rhapsodic's
-package URL is `https://pnpr.rhapsodic.dev/npm/`, and its resolver uses
-`https://pnpr.rhapsodic.dev/`. Preserve different project URLs.
-
-Share authentication at workflow level with `secrets.PNPR_REGISTRY_TOKEN`.
-For a workspace using both Rhapsodic endpoints, list root first and `/npm/` last:
+Keep the registry in `pnpm-workspace.yaml` and leave `pnprServer` out of local
+workspace defaults. Use Corepack with the runner's persistent tool cache, disable
+dependency caching, and configure PNPR authentication explicitly in CI:
 
 ```yaml
 env:
+  COREPACK_HOME: /opt/hostedtoolcache/corepack
+  PNPM_CONFIG_REGISTRY: https://pnpr.rhapsodic.dev/npm/
+  PNPM_CONFIG_PNPR_SERVER: https://pnpr.rhapsodic.dev/
   PNPM_CONFIG__AUTH: >-
     {
       "https://pnpr.rhapsodic.dev/": {"@": {"authToken": ${{ toJSON(secrets.PNPR_REGISTRY_TOKEN) }}}},
       "https://pnpr.rhapsodic.dev/npm/": {"@": {"authToken": ${{ toJSON(secrets.PNPR_REGISTRY_TOKEN) }}}}
     }
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: https://data.forgejo.org/actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: https://data.forgejo.org/actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          package-manager-cache: false
+
+      - name: Set up pnpm
+        run: |
+          corepack enable
+          pnpm --version
 ```
 
-If the workspace requires resolver authentication and no token is available,
-report the missing credential; do not change the workspace to bypass it.
+The runner must mount `/opt/hostedtoolcache` persistently. `COREPACK_HOME` caches
+pnpm distributions; the dependency store stays outside that cache. Keep the
+workspace available during installs and Docker builds. Preserve different
+project endpoints and keep tokens in secrets rather than tracked files or
+command-line arguments. Pass Docker auth through the `pnpm_auth` BuildKit secret.
 
-Let pnpm read the registry from the workspace. Any explicit
-`PNPM_CONFIG_REGISTRY` must match it. For pnpm-only workflows, omit redundant `NPM_CONFIG_REGISTRY`,
-`NODE_AUTH_TOKEN`, and `setup-node`'s `registry-url`. Retain them when other
-package-manager commands require them. For Docker builds, mount the auth as a
-BuildKit secret such as `pnpm_auth=PNPM_CONFIG__AUTH`.
+Release and changelog are standalone CLI packages. Invoke them through
+`pnpm dlx`; their publication workflows remain ordinary package CI. Keep package
+credentials separate from release API tokens.
 
-Run shared tools with `pnpm dlx --package=<package>@1 <binary>`:
-
-| Package | Binary | Target |
+| Package | Binary | Purpose |
 | --- | --- | --- |
-| `@rhapsodic/action-changelog` | `changelog` | Git-based changelog generation |
-| `@rhapsodic/action-release` | `validate-version-tag` | Local version-tag and branch validation |
-| `@rhapsodic/action-release` | `forgejo-release` | Forgejo Releases; verify support before using another platform |
+| `@rhapsodic/changelog` | `changelog` | Git-based changelog generation |
+| `@rhapsodic/release` | `validate-version-tag` | Version-tag and branch validation |
+| `@rhapsodic/release` | `forgejo-release` | Forgejo Releases |
 
-`validate-version-tag` checks Git state without publishing. Registry publication
-uses `pnpm publish:package`; Forgejo Releases use `forgejo-release`.
-
-Registry packages must already expose the required CLI options. Omit
-`--config.ignoreScripts=true` from ordinary registry CLI calls unless needed;
-preserve intentional lifecycle restrictions on other commands. Keep pnpr
-credentials separate from the target platform's release API credentials.
-
-Package ranges such as `@1` provide compatible stable updates; use an exact
-version when required. Keep exact Git release tags.
+The setup action bootstraps its package through npm with registry-scoped
+credentials. Other shared CLIs run through `pnpm dlx --package=<package>@1 <binary>`.
+Publish packages before consuming them, preserve exact Git release tags, and
+follow each project's release and image-publication rules.

@@ -21,37 +21,63 @@ description: Create, refactor, or migrate CI and release workflows for GitHub Ac
 ## Setup and credentials
 
 - Share common configuration through workflow-level `env`; retain intentional job and step overrides.
-- Follow the project's package manager and runtime pins. Enable Corepack before pnpm commands or setup actions that query pnpm for caching.
+- Follow the project's package manager and runtime pins. Set up pnpm before commands or setup actions that query it.
 - Resolve temporary paths at runtime when job-level expressions cannot access them. Export paths needed by later steps through the platform's environment file.
 - Pass Docker build credentials through BuildKit secrets, not build arguments or image environment variables. Leave checkout credential persistence off unless later Git operations need it.
 
 ## Rhapsodic pnpr defaults
 
-- Follow `pnpm-workspace.yaml`; do not edit it for CI. Keep it available when installing dependencies in CI and Docker.
-- Rhapsodic uses `https://pnpr.rhapsodic.dev/npm/` for packages and `https://pnpr.rhapsodic.dev/` for the resolver. Preserve different URLs already configured by the project.
-- Put shared auth in workflow-level `env`, using `secrets.PNPR_REGISTRY_TOKEN`. Match the workspace's endpoints: root first, `/npm/` last. Auth entries also affect registry routing.
-
-For a workspace already using both Rhapsodic endpoints:
+Keep the registry in `pnpm-workspace.yaml` and leave `pnprServer` out of local
+workspace defaults. Use Corepack with the runner's persistent tool cache, disable
+dependency caching, and configure PNPR authentication explicitly in CI:
 
 ```yaml
 env:
+  COREPACK_HOME: /opt/hostedtoolcache/corepack
+  PNPM_CONFIG_REGISTRY: https://pnpr.rhapsodic.dev/npm/
+  PNPM_CONFIG_PNPR_SERVER: https://pnpr.rhapsodic.dev/
   PNPM_CONFIG__AUTH: >-
     {
       "https://pnpr.rhapsodic.dev/": {"@": {"authToken": ${{ toJSON(secrets.PNPR_REGISTRY_TOKEN) }}}},
       "https://pnpr.rhapsodic.dev/npm/": {"@": {"authToken": ${{ toJSON(secrets.PNPR_REGISTRY_TOKEN) }}}}
     }
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: https://data.forgejo.org/actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: https://data.forgejo.org/actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          package-manager-cache: false
+
+      - name: Set up pnpm
+        run: |
+          corepack enable
+          pnpm --version
 ```
 
-- Let pnpm read registry settings from the workspace. Any required `PNPM_CONFIG_REGISTRY` must match it. Omit redundant npm auth settings in pnpm-only workflows.
-- Public packages can be read anonymously; the resolver needs a token. Report missing credentials instead of changing workspace settings. Downloads need read access; publishing needs write access.
-- Pass Docker auth through the `pnpm_auth` BuildKit secret. Keep package credentials separate from release API tokens.
-- Run shared CLIs with `pnpm dlx --package=<package>@1 <binary>`. Do not add `--config.ignoreScripts=true` unless needed.
+The runner must mount `/opt/hostedtoolcache` persistently. `COREPACK_HOME` caches
+pnpm distributions; the dependency store stays outside that cache. Keep the
+workspace available during installs and Docker builds. Preserve different
+project endpoints and keep tokens in secrets rather than tracked files or
+command-line arguments. Pass Docker auth through the `pnpm_auth` BuildKit secret.
+
+Release and changelog are standalone CLI packages. Invoke them through
+`pnpm dlx`; their publication workflows remain ordinary package CI. Keep package
+credentials separate from release API tokens.
 
 | Package | Binary | Purpose |
 | --- | --- | --- |
-| `@rhapsodic/action-changelog` | `changelog` | Changelog and release notes |
-| `@rhapsodic/action-release` | `validate-version-tag` | Local version, tag, commit, and branch checks on any Actions platform |
-| `@rhapsodic/action-release` | `forgejo-release` | Forgejo Releases, using `FORGEJO_TOKEN`; verify support for other platforms |
+| `@rhapsodic/changelog` | `changelog` | Changelog and release notes |
+| `@rhapsodic/release` | `validate-version-tag` | Local version, tag, commit, and branch validation |
+| `@rhapsodic/release` | `forgejo-release` | Forgejo Releases using `FORGEJO_TOKEN` |
 
 ## Releases
 
@@ -81,7 +107,7 @@ steps:
   - name: Validate version tag
     id: version
     run: >-
-      pnpm dlx --package=@rhapsodic/action-release@1 validate-version-tag
+      pnpm dlx --package=@rhapsodic/release@1 validate-version-tag
       --tag "$RELEASE_TAG"
       --sha "$RELEASE_SHA"
       --branch "$RELEASE_BRANCH"
