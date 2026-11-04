@@ -11,6 +11,7 @@ description: Use when planning, reviewing, or creating Git commits.
 - For a requested series, separate foundational UI components, individual constructor blocks, and integration or seeding changes, preserving dependency order.
 - Keep package-manager and Composer or container changes in separate commits when they are independently reversible.
 - Create one logical commit using lowercase Conventional Commits: `type(scope): description`.
+- Do not add AI `Co-Authored-By` trailers or generated-by credits to commit messages.
 - Choose the commit type by the behavior changed, not the file extension. Treat agent skill instructions as product code: use `feat` for new behavior, `fix` for corrections, and `docs` for documentation-only changes.
 - Use `feat: create project` for the first commit, including when squashing an existing project into a fresh history.
 - For one dependency update, use `chore(deps): update <package> to v<version>` with the exact package and version, even when described as an upgrade.
