@@ -1,0 +1,4 @@
+interface:
+  display_name: "Vue Component Authoring"
+  short_description: "Create and refactor Vue components with typed contracts"
+  default_prompt: "Use $vue-component-authoring to create or refactor these Vue components with typed contracts while preserving project conventions and consumers."

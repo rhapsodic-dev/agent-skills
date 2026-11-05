@@ -132,6 +132,7 @@ npx skills-npm setup
 - [`manage-projects`](skills/manage-projects/README.md): run, test, build, or troubleshoot Laravel Docker Compose projects using `./manage` and `.manage.json`.
 - [`project-skill-creator`](skills/project-skill-creator/README.md): create or update project-local agent skills from a project's workflows and conventions.
 - [`scss-bem`](skills/scss-bem/README.md): write or refactor component SCSS using BEM naming.
+- [`vue-component-authoring`](skills/vue-component-authoring/README.md): create, split, or refactor Vue 3 components with typed contracts and stable imports or Nuxt registration.
 - [`worksession`](skills/worksession/README.md): manage persistent workspace services and interactive terminals through the `worksession` CLI.
 
 ## Development
