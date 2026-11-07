@@ -19,6 +19,10 @@ node /path/to/agent-skills/bin/cli.mjs
 
 The installer resolves skills relative to its own package. It defaults to global Codex installation, preselecting installed skills. Use `--project` from the target project for project-local installation. The optional `find-skills` skill is not installed.
 
+Use `node /path/to/agent-skills/bin/cli.mjs --upgrade` to refresh only already installed bundled skills without prompts. Add `--project` to target the current project. This uses the checkout's skill files; the cron examples in [README.md](README.md#automatic-upgrades-with-cron) use the latest published npm release instead.
+
+Run `node /path/to/agent-skills/bin/cli.mjs cron` to set up the daily upgrade job, or add `--remove` to disable it. Add `--project` for the current project. Scheduled jobs fetch the latest published npm release even when setup runs from a checkout; publish a release with `--upgrade` support before using them. The cron tests use an isolated fake crontab and do not modify your real scheduled jobs.
+
 ## Global installation
 
 Install every skill for Codex across repositories:

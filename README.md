@@ -14,6 +14,7 @@ Install the published [`@rhapsodic/agent-skills`](https://npmx.dev/package/@rhap
     - [skills-npm](#skills-npm)
   - [GitHub](#github)
 - [Upgrading](#upgrading)
+  - [Automatic upgrades with cron](#automatic-upgrades-with-cron)
 - [Skills](#skills)
 - [Development](#development)
 - [Contributing](#contributing)
@@ -115,12 +116,55 @@ npx @rhapsodic/agent-skills@latest
 
 For project-local skills, run the command from the target project with `--project`; installed project skills are preselected there. To upgrade specific skills without prompts, pass their names with `--skill`, such as `--skill git-commit scss-bem`. Use `--yes` to install or upgrade every bundled skill.
 
+To upgrade only already installed bundled skills without prompts:
+
+```bash
+npx --yes @rhapsodic/agent-skills@latest --upgrade
+```
+
+`--upgrade` replaces installed skill files with the versions bundled in the selected npm release. It skips bundled skills that are not installed and leaves skills with other names alone. If no bundled skills are installed, it exits successfully without installing anything. Add `--project` and run from the target project to upgrade that scope. `--yes` does not expand the selection when combined with `--upgrade`; `--skill`, `--all`, `--list`, and `--subagent` cannot be combined with it.
+
 If you use `skills-npm`, update the dependency and refresh its project-local links:
 
 ```bash
 npm install --save-dev @rhapsodic/agent-skills@latest
 npx skills-npm setup
 ```
+
+### Automatic upgrades with cron
+
+Set up daily upgrades at 03:00 for already installed global Codex skills:
+
+```bash
+npx --yes @rhapsodic/agent-skills@latest cron
+```
+
+Run this as the user who installed the skills, with that user's Node environment active. Setup requires `crontab`, `flock`, and `npx` on a Unix system; on Linux, install your distribution's cron service and enable it if needed. The command adds the job to your user crontab, preserves unrelated entries, and replaces its own entry when run again. Upgrades run on the cron service's timezone and use the latest published npm release.
+
+Choose a different schedule with a quoted five-field cron expression. Numeric values, wildcards, ranges, lists, and steps are supported:
+
+```bash
+npx --yes @rhapsodic/agent-skills@latest cron --schedule '0 6 * * 1'
+```
+
+To schedule project-local upgrades, run setup from the target project:
+
+```bash
+npx --yes @rhapsodic/agent-skills@latest cron --project
+```
+
+Each project gets its own job. Setup captures the current Node executable directory, executable paths, `HOME`, and any `CODEX_HOME`, `XDG_CONFIG_HOME`, and `XDG_STATE_HOME` overrides, so jobs work without an interactive shell profile. Rerun setup after moving a Node installation; remove a project's job before moving or deleting that project.
+
+Setup prints the log path. Runner scripts, append-only logs, and locks live under `${XDG_STATE_HOME:-$HOME/.local/state}/agent-skills/cron`. The job uses `flock` to skip overlapping runs. These jobs upgrade this package's installed bundled skills; they do not update `skills-npm` dependencies.
+
+Remove the global job, or remove a project's job from that project directory:
+
+```bash
+npx --yes @rhapsodic/agent-skills@latest cron --remove
+npx --yes @rhapsodic/agent-skills@latest cron --project --remove
+```
+
+Removal leaves the runner, logs, and lock files in place.
 
 ## Skills
 
