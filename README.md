@@ -174,6 +174,7 @@ Removal leaves the runner, logs, and lock files in place.
 - [`git-commit`](skills/git-commit/README.md): plan, review, or create Git commits.
 - [`laravel-migrations`](skills/laravel-migrations/README.md): create Laravel database migrations through Artisan.
 - [`manage-projects`](skills/manage-projects/README.md): run, test, build, or troubleshoot Laravel Docker Compose projects using `./manage` and `.manage.json`.
+- [`nuxt-histoire-stories`](skills/nuxt-histoire-stories/README.md): add or update colocated Vue stories in Nuxt Histoire projects with typed playgrounds and shared-layer discovery.
 - [`project-skill-creator`](skills/project-skill-creator/README.md): create or update project-local agent skills from a project's workflows and conventions.
 - [`scss-bem`](skills/scss-bem/README.md): write or refactor component SCSS using BEM naming.
 - [`vue-component-authoring`](skills/vue-component-authoring/README.md): create, split, or refactor Vue 3 components with typed contracts and stable imports or Nuxt registration.

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Nuxt Histoire Stories"
+  short_description: "Create typed Vue stories for Nuxt Histoire projects"
+  default_prompt: "Use $nuxt-histoire-stories to add or update these Vue stories with typed interactive state while following the existing Nuxt Histoire setup."
