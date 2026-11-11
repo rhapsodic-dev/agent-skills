@@ -14,13 +14,15 @@ description: Create, extract, split, or substantially refactor Vue 3 and Nuxt co
 
 ## Structure and contracts
 
-- Default to `user-card/user-card.vue` with contracts in `user-card/index.ts` when the project has no stronger convention. A trivial private leaf may stay flat.
+- Give every component its own kebab-case directory, including trivial and private leaf components: `user-card/user-card.vue`. Apply this to components being created, extracted, or moved; leave unrelated existing files alone.
+- Keep each component's external contracts in its own `index.ts` and its stories beside its SFC. Do not merge distinct components' contracts merely because they belong to the same family.
+- Every component inside `layers/ui` or `app/components/ui`, including nested and trivial components, must have its own separate `index.ts` for its props, emits, and slots types.
 - Colocate reusable props, public emits, slots, variants, and externally imported types. Name them after the component, such as `UserCardProps`, `UserCardEmits`, and `UserCardSlots`.
-- Allow contracts inside the `.vue` file for a product-app leaf with one or two primitive props, no public events, no variants, and no externally consumed types. Shared-library components should keep their public contracts discoverable even when small.
+- Allow contracts inside the `.vue` file only for a product-app leaf outside `layers/ui` and `app/components/ui` with one or two primitive props, no public events, no variants, and no externally consumed types. Shared-library components should keep their public contracts discoverable even when small.
 - Define props, emits, and slots as separate named interfaces, including when they stay inside the `.vue` file. Pass those interface names to Vue macros rather than anonymous inline object types; use named type aliases for variant unions.
 - Declare only contracts the component actually exposes. Do not create empty interfaces, unused macros, or speculative variants.
 - Use the project's typed Vue macros. Keep actual defaults in `withDefaults`; omit entries whose only default is `undefined`, and use `defineProps` directly when no defaults are needed.
-- Group tightly related children under their parent without repeating the parent's name in every child path. Check generated component names before changing this hierarchy.
+- Group tightly related children by nesting their own component directories under the parent, never by placing distinct component SFCs side by side in one directory. For example, use `radio-group/radio-group.vue`, `radio-group/index.ts`, `radio-group/radio/radio.vue`, and `radio-group/radio/index.ts`. Check generated component names before changing this hierarchy.
 
 ## Templates and behavior
 
@@ -43,6 +45,7 @@ description: Create, extract, split, or substantially refactor Vue 3 and Nuxt co
 ## Preserve consumers
 
 - Before a move, find direct imports, auto-registered usages, type imports, stories, and tests. Preserve the public name or migrate the affected callers within the authorized scope.
+- Before completing a component creation or move, check that every affected component has its own directory and that examples, contracts, and stories follow the same layout.
 - Preserve behavior, defaults, events, slots, and accessible interaction states unless the task changes them.
 - Validate changed component contracts with the project's typecheck command and focused lint. For template or style changes, verify the relevant rendered state using the configured browser or story workflow.
 
@@ -129,7 +132,7 @@ function selectUser(): void {
 </style>
 ```
 
-`team-panel.vue`, beside the `user-card/` directory:
+`team-panel/team-panel.vue`, with `team-panel/` beside the `user-card/` directory:
 
 ```vue
 <template>
@@ -169,7 +172,7 @@ function selectUser(): void {
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import UserCard from './user-card/user-card.vue';
+import UserCard from '../user-card/user-card.vue';
 
 const selectedUserId = ref<string>();
 
@@ -184,7 +187,7 @@ function handleSelect(id: string): void {
 
 ## Trivial leaf example
 
-For a trivial product-app leaf that qualifies to keep contracts inside its `.vue` file, still declare a separate named interface:
+For a trivial product-app leaf outside `layers/ui` and `app/components/ui` that qualifies to keep contracts inside its `.vue` file, still use its own directory (`status-label/status-label.vue`) and declare a separate named interface:
 
 ```vue
 <template>

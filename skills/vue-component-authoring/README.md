@@ -14,6 +14,6 @@ Use $vue-component-authoring to split this Nuxt component into related children,
 
 ## Project conventions
 
-The consuming project's README always takes priority over the skill. The skill follows existing project structure and keeps narrow fixes local. Without a stronger convention, reusable components use `user-card/user-card.vue` with contracts in `user-card/index.ts`; trivial private leaves may stay flat.
+The consuming project's README always takes priority over the skill. The skill follows existing project structure and keeps narrow fixes local. Each component uses its own directory, such as `user-card/user-card.vue`. Every component inside `layers/ui` or `app/components/ui`, including nested and trivial components, must have its own separate `index.ts` for its props, emits, and slots types. Only qualifying product-app leaves outside those paths may keep contracts inside their `.vue` file.
 
 Keep project-specific preferences in the consuming project's instructions or the request. Use the installed SCSS BEM or class-generation skills for their respective rules and APIs.
