@@ -14,7 +14,8 @@ description: Create, extract, split, or substantially refactor Vue 3 and Nuxt co
 
 ## Structure and contracts
 
-- Give every component its own kebab-case directory, including trivial and private leaf components: `user-card/user-card.vue`. Apply this to components being created, extracted, or moved; leave unrelated existing files alone.
+- Give each component its own kebab-case directory, including trivial and private leaves such as `user-card/user-card.vue`. Apply this to components being created, extracted, or moved. Leave unrelated files alone.
+- Keep individual SVG icon SFCs as flat siblings in their designated icon directory, for example `app/icons/chevron-down.vue`. A shared icon base follows the ordinary component layout.
 - Keep each component's external contracts in its own `index.ts` and its stories beside its SFC. Do not merge distinct components' contracts merely because they belong to the same family.
 - Every component inside `layers/ui` or `app/components/ui`, including nested and trivial components, must have its own separate `index.ts` for its props, emits, and slots types.
 - Colocate reusable props, public emits, slots, variants, and externally imported types. Name them after the component, such as `UserCardProps`, `UserCardEmits`, and `UserCardSlots`.
@@ -22,7 +23,7 @@ description: Create, extract, split, or substantially refactor Vue 3 and Nuxt co
 - Define props, emits, and slots as separate named interfaces, including when they stay inside the `.vue` file. Pass those interface names to Vue macros rather than anonymous inline object types; use named type aliases for variant unions.
 - Declare only contracts the component actually exposes. Do not create empty interfaces, unused macros, or speculative variants.
 - Use the project's typed Vue macros. Keep actual defaults in `withDefaults`; omit entries whose only default is `undefined`, and use `defineProps` directly when no defaults are needed.
-- Group tightly related children by nesting their own component directories under the parent, never by placing distinct component SFCs side by side in one directory. For example, use `radio-group/radio-group.vue`, `radio-group/index.ts`, `radio-group/radio/radio.vue`, and `radio-group/radio/index.ts`. Check generated component names before changing this hierarchy.
+- Group tightly related children outside icon collections by nesting their own component directories under the parent. For example, use `radio-group/radio-group.vue`, `radio-group/index.ts`, `radio-group/radio/radio.vue`, and `radio-group/radio/index.ts`. Check generated component names before changing this hierarchy.
 
 ## Templates and behavior
 
@@ -45,7 +46,7 @@ description: Create, extract, split, or substantially refactor Vue 3 and Nuxt co
 ## Preserve consumers
 
 - Before a move, find direct imports, auto-registered usages, type imports, stories, and tests. Preserve the public name or migrate the affected callers within the authorized scope.
-- Before completing a component creation or move, check that every affected component has its own directory and that examples, contracts, and stories follow the same layout.
+- Before completing a component creation or move, verify the directory layout for affected components, including the flat icon convention. Keep examples, contracts, and stories colocated with their components.
 - Preserve behavior, defaults, events, slots, and accessible interaction states unless the task changes them.
 - Validate changed component contracts with the project's typecheck command and focused lint. For template or style changes, verify the relevant rendered state using the configured browser or story workflow.
 
