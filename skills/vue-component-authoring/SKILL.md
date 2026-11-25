@@ -212,5 +212,5 @@ defineProps<StatusLabelProps>();
 
 - Prefer concern-based composable filenames such as `hover.ts`; reserve `useHover` for the exported function.
 - Prefer `undefined` for optional app values while preserving `null` required by an external contract.
-- Helper configuration with more than two or three fields normally stays as a named `config` or `payload` object rather than a long destructured signature.
+- For TypeScript in Vue script blocks, use the installed `typescript-authoring` skill for formatting, destructuring, types, and control flow when available.
 - For SCSS BEM rules or class-generation APIs, use relevant installed skills when available rather than duplicating their guidance.
