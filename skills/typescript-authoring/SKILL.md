@@ -35,6 +35,7 @@ const fulfillmentStates = [
 ## Precise, useful types
 
 - Reuse existing domain contracts and generated API types. Give drafts, payloads, rows, and results precise named types. Prefer a small domain interface when it expresses the shape clearly.
+- When defining a helper's signature, prefer a typed options object if it takes two or more configuration values or is likely to gain more options.
 - Let TypeScript infer obvious locals. Annotate public boundaries and values where inference would be misleading.
 - Use `unknown` for untrusted values. Validate or narrow them at the boundary with schemas, type guards, or explicit checks, then pass concrete types internally. Resolve type errors without `any`, unchecked assertions, or non-null assertions that bypass validation.
 - Model absence explicitly with optional properties, `null`, or `undefined`. Use discriminated unions when a tag makes valid state combinations clear.
