@@ -41,7 +41,12 @@ description: Create, extract, split, or substantially refactor Vue 3 and Nuxt co
 - Use `useBMC` from `@rhapsodic/bem-classnames-vue` for dynamic BEM classes when installed; follow its installed API and skills.
 - Reuse existing theme tokens. Use a literal class for a static root; do not add a class-generation dependency for a local change.
 - Render icons through dedicated icon components from the project's established icon directory or shared layer. Reuse existing icons; add missing icons beside the others, including in an available sibling UI library when that owns the icon system. Keep icon SVG and path data out of product components. Data-driven SVG charts remain in their chart components.
-- In Nuxt apps, inspect configured prefixes and auto-imports; use explicit Vue/Nuxt imports in reusable module runtime code rather than assuming app auto-imports apply there.
+
+## Nuxt app conventions
+
+- Set each new page's document title with `useHead`, or use the project's existing page-title helper. When an app-level `titleTemplate` adds the project name, pass only the page-specific title.
+- In app code under `app/`, prefer Nuxt auto-imports where enabled. Check the project's configuration and component prefixes. Use explicit Vue and Nuxt imports in reusable module runtime code.
+- When passing a modal component to Vue Final Modal in a Nuxt app, import it explicitly by its registered name from `#components` and pass it to `useModal({ component: ... })`.
 
 ## Preserve consumers
 
