@@ -1,0 +1,4 @@
+interface:
+  display_name: "TypeScript Authoring"
+  short_description: "Write readable, precisely typed TypeScript"
+  default_prompt: "Use $typescript-authoring to review this TypeScript code for readable declaration groups, precise types, and explicit control flow."

@@ -177,6 +177,7 @@ Removal leaves the runner, logs, and lock files in place.
 - [`nuxt-histoire-stories`](skills/nuxt-histoire-stories/README.md): add or update colocated Vue stories in Nuxt Histoire projects with typed playgrounds and shared-layer discovery.
 - [`project-skill-creator`](skills/project-skill-creator/README.md): create or update project-local agent skills from a project's workflows and conventions.
 - [`scss-bem`](skills/scss-bem/README.md): write or refactor component SCSS using BEM naming.
+- [`typescript-authoring`](skills/typescript-authoring/README.md): write, review, or refactor TypeScript with readable formatting, precise types, and explicit control flow.
 - [`vue-component-authoring`](skills/vue-component-authoring/README.md): create, split, or refactor Vue 3 components with typed contracts and stable imports or Nuxt registration.
 - [`worksession`](skills/worksession/README.md): manage persistent workspace services and interactive terminals through the `worksession` CLI.
 
